@@ -8,7 +8,7 @@ const PORT = 9090;
 
 
 app.get('/', (req, res) => {
-  return res.status(200).send({message: 'Ready!!'});
+  return res.status(200).send({message: 'Ready!! v2.1'});
 });
 
 
