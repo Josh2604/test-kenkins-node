@@ -10,7 +10,7 @@ pipeline {
       steps {
         withCredentials([string(credentialsId: 'INTEGRATION_SERVICE', variable: 'INTEGRATION_SERVICE'), string(credentialsId: 'INTEGRATION_KEY', variable: 'INTEGRATION_KEY')]){        
           sh '''
-            curl -X GET $INTEGRATION_SERVICE/test-kenkins-node/INTEGRATION_KEY
+            curl -X GET $INTEGRATION_SERVICE/test-kenkins-node/$INTEGRATION_KEY
             '''
           }  
         }
