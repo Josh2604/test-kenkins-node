@@ -6,7 +6,7 @@ pipeline {
         sh "echo 'Im running'"
       }
     }
-    stages('Send to integration service') {
+    stage('Send to integration service') {
       withCredentials([string(credentialsId: 'INTEGRATION_SERVICE', variable: 'INTEGRATION_SERVICE')]){
         withCredentials([string(credentialsId: 'INTEGRATION_KEY', variable: 'INTEGRATION_KEY')]){
           steps {
