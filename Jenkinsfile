@@ -6,13 +6,16 @@ pipeline {
         sh "echo 'Im running'"
       }
     }
-    stage('Apply Kubernetes Files') {
-      steps {
-          withKubeConfig([credentialsId: 'kubeconfig']) {
-          sh 'cat deployment.yaml | sed "s/{{BUILD_NUMBER}}/$BUILD_NUMBER/g" | kubectl apply -f -'
-          sh 'kubectl apply -f service.yaml'
+    stages('Send to integration service') {
+      withCredentials([string(credentialsId: 'INTEGRATION_SERVICE', variable: 'INTEGRATION_SERVICE')]){
+        withCredentials([string(credentialsId: 'INTEGRATION_KEY', variable: 'INTEGRATION_KEY')]){
+          steps {
+            sh '''
+              curl -X GET $INTEGRATION_SERVICE/test-kenkins-node/INTEGRATION_KEY
+            '''
+          }  
         }
       }
+    }
   }
-}
 }
